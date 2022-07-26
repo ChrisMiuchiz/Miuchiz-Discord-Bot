@@ -103,7 +103,7 @@ impl MiuchizBot {
 
     pub fn get_online_player_names(&self) -> Vec<String> {
         if let Ok(txt) = std::fs::read_to_string(&self.user_file) {
-            txt.split('\n')
+            txt.lines()
                 .filter(|x| !x.is_empty())
                 .map(|x| x.to_string())
                 .collect()
