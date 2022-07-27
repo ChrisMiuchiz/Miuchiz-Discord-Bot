@@ -29,13 +29,12 @@ impl EventHandler for Handler {
 #[tokio::main]
 async fn main() {
     let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
-    let user_file = env::var("MIUCHIZ_USERLIST_FILE").expect("Expected a miuchiz userlist file in the environment");
+    let user_file = env::var("MIUCHIZ_USERLIST_FILE")
+        .expect("Expected a miuchiz userlist file in the environment");
 
     let intents = GatewayIntents::empty();
     let mut client = Client::builder(&token, intents)
-        .event_handler(Handler::new(PathBuf::from(
-            user_file,
-        )))
+        .event_handler(Handler::new(PathBuf::from(user_file)))
         .await
         .expect("Error creating client");
 
