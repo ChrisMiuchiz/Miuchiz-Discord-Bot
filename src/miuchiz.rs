@@ -134,7 +134,8 @@ impl MiuchizBot {
 
     pub async fn update_status(&self, online_count: usize) {
         let status = if online_count > 0 {
-            format!("{online_count} players ingame")
+            let plural = if online_count > 1 { "s" } else { "" };
+            format!("{online_count} player{plural} ingame")
         } else {
             "No players ingame 😢".to_string()
         };
