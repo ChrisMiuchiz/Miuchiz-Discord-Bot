@@ -126,8 +126,19 @@ impl MiuchizBot {
     }
 
     pub async fn send_online_notification(&mut self, online_players: &[String]) {
-        let text = format!("Online players:\n```\n{}\n```", online_players.join("\n"));
-        if let Err(why) = self.banner.edit(&self.ctx, |x| x.content(&text)).await {
+        // If there are no players, it looks better to put a single space
+        let player_list_text = match online_players.is_empty() {
+            true => " ".to_string(),
+            false => online_players.join("\n"),
+        };
+
+        let banner_text = format!("Online players:\n```\n{}\n```", player_list_text);
+
+        if let Err(why) = self
+            .banner
+            .edit(&self.ctx, |x| x.content(&banner_text))
+            .await
+        {
             eprintln!("Failed to update banner {why:?}");
         }
     }
