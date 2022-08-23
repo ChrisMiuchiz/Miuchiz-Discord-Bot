@@ -6,6 +6,7 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time;
 
+const ONLINE_PLAYERS_CHANNEL: ChannelId = ChannelId(1011782827848777970);
 const NOTIFICATIONS_CHANNEL: ChannelId = ChannelId(597636044464193577);
 
 #[derive(Debug)]
@@ -58,7 +59,7 @@ impl MiuchizBot {
 
     pub async fn send_initial_message(ctx: &Context) -> Message {
         loop {
-            let message = NOTIFICATIONS_CHANNEL
+            let message = ONLINE_PLAYERS_CHANNEL
                 .send_message(&ctx, |m| m.content("..."))
                 .await;
             match message {
